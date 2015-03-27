@@ -1,10 +1,33 @@
 param T := 600;
 
+// all buildings protoss can build
+set buildings:= assimilator, cyberneticsCore, darkShrine, fleetBeacon, forge, 
+gateway, nexus, photoCannon, pylon, roboticsBay, roboticsFacility, stargate,
+templarArchives, twilightCouncil, warpGate;
+
+// all units protoss can build
+set units := probe, zealot, stalker, sentry, observer, immortal,
+warpPrism, colossus, phoenix, voidray, highTemplar, darkTemplar, archon,
+carrier, mothership, mothershipCore, oracle, tempest
 
 param startMinerals := 50;
 param startGas := 0;
 
-
+param buildTime := assimilator 30
+                   cyberneticsCore 50
+                   darkShrine 100
+                   fleetBeacon 60
+                   forge 45
+                   gateway 65
+                   nexus 100
+                   photonCannon 40
+                   pylon 25
+                   roboticsBay 65
+                   roboticsFacility 65
+                   stargate 60
+                   templarArchives 50
+                   twilightCouncil 50
+                   warpGate 10
 
 
 param totalSupplyCap := 200;
