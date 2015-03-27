@@ -1,1 +1,10 @@
 param T := 600;
+
+
+param startMinerals := 50;
+param startGas := 0;
+
+
+
+
+param totalSupplyCap := 200;
