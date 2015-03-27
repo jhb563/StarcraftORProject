@@ -8,7 +8,7 @@ templarArchives, twilightCouncil, warpGate;
 // all units protoss can build
 set units := probe, zealot, stalker, sentry, observer, immortal,
 warpPrism, colossus, phoenix, voidray, highTemplar, darkTemplar,
-carrier, mothership, mothershipCore, oracle, tempest
+carrier, mothership, mothershipCore, oracle, tempest;
 
 param startMinerals := 50;
 param startGas := 0;
@@ -27,7 +27,7 @@ param buildTime := assimilator 30
                    stargate 60
                    templarArchives 50
                    twilightCouncil 50
-                   warpGate 10
+                   warpGate 10;
 
 param buildingCost:= assimilator 75
                      cyberneticsCore 150
@@ -43,7 +43,7 @@ param buildingCost:= assimilator 75
                      stargate 150
                      templarArchives 150
                      twilightCouncil 150
-                     warpGate 150
+                     warpGate 150;
 
 param buildingCostGas := assimilator 0
                          cyberneticsCore 0
@@ -59,7 +59,7 @@ param buildingCostGas := assimilator 0
                          stargate 150
                          templarArchives 200
                          twilightCouncil 100
-                         warpGate 0
+                         warpGate 0;
 
 param unitsProvided := assimilator 0
                        cyberneticsCore 0
@@ -75,7 +75,7 @@ param unitsProvided := assimilator 0
                        stargate 0
                        templarArchives 0
                        twilightCouncil 0
-                       warpGate 0
+                       warpGate 0;
 
 param trainTime := probe 17
                    zealot 38
@@ -93,7 +93,7 @@ param trainTime := probe 17
                    mothership 100
                    mothershipCore 30
                    oracle 50
-                   tempest 60
+                   tempest 60;
 
 param unitCost := probe 50
                   zealot 100
@@ -111,7 +111,7 @@ param unitCost := probe 50
                   mothership 300
                   mothershipCore 100
                   oracle 150
-                  tempest 300
+                  tempest 300;
 
 param unitCostGas := probe 0
                      zealot 0
@@ -129,7 +129,7 @@ param unitCostGas := probe 0
                      mothership 300
                      mothershipCore 100
                      oracle 150
-                     tempest 200
+                     tempest 200;
 
 param init := probe 6
               zealot 0
@@ -147,7 +147,7 @@ param init := probe 6
               mothership 0
               mothershipCore 0
               oracle 0
-              tempest 0
+              tempest 0;
 
 param unitSupply := probe 1
                     zealot 2
@@ -165,9 +165,31 @@ param unitSupply := probe 1
                     mothership 8
                     mothershipCore 2
                     oracle 3
-                    tempest 4
+                    tempest 4;
 
 
+param requiredForBuildingBuilding := assimilator cyberneticsCore darkShrine fleetBeacon forge gateway nexus photoCannon pylon roboticsBay roboticsFacility stargate templarArchives twilightCouncil warpGate
+assimilator     0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+cyberneticsCore 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0
+darkShrine      0 0 0 0 0 0 0 0 0 0 0 0 0 1 0
+fleetBeacon     0 0 0 0 0 0 0 0 0 0 0 1 0 0 0
+forge           
+gateway
+nexus 
+photonCannon
+pylon
+roboticsBay
+roboticsFacility
+stargate
+templarArchives
+twilightCouncil
+warpGate 
 
+
+param startMinerals := 50;
+
+param mineralRatePerWorker := 42;
+
+param gasRatePerWorker := 
 
 param totalSupplyCap := 200;
