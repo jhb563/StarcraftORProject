@@ -29,5 +29,53 @@ param buildTime := assimilator 30
                    twilightCouncil 50
                    warpGate 10
 
+param buildingCost:= assimilator 75
+                     cyberneticsCore 150
+                     darkShrine 150
+                     fleetBeacon 300
+                     forge 150
+                     gateway 150
+                     nexus 400
+                     photonCannon 150
+                     pylon 100
+                     roboticsBay 200
+                     roboticsFacility 200
+                     stargate 150
+                     templarArchives 150
+                     twilightCouncil 150
+                     warpGate 150
+
+param buildingCostGas := assimilator 0
+                         cyberneticsCore 0
+                         darkShrine 150
+                         fleetBeacon 200
+                         forge 0
+                         gateway 0
+                         nexus 0
+                         photonCannon 0
+                         pylon 0
+                         roboticsBay 200
+                         roboticsFacility 100
+                         stargate 150
+                         templarArchives 200
+                         twilightCouncil 100
+                         warpGate 0
+
+param unitsProvided := assimilator 0
+                       cyberneticsCore 0
+                       darkShrine 0
+                       fleetBeacon 0
+                       forge 0
+                       gateway 0
+                       nexus 10
+                       photonCannon 0
+                       pylon 8
+                       roboticsBay 0
+                       roboticsFacility 0
+                       stargate 0
+                       templarArchives 0
+                       twilightCouncil 0
+                       warpGate 0
+
 
 param totalSupplyCap := 200;
