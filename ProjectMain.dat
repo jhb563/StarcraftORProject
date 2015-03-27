@@ -7,7 +7,7 @@ templarArchives, twilightCouncil, warpGate;
 
 // all units protoss can build
 set units := probe, zealot, stalker, sentry, observer, immortal,
-warpPrism, colossus, phoenix, voidray, highTemplar, darkTemplar, archon,
+warpPrism, colossus, phoenix, voidray, highTemplar, darkTemplar,
 carrier, mothership, mothershipCore, oracle, tempest
 
 param startMinerals := 50;
@@ -76,6 +76,98 @@ param unitsProvided := assimilator 0
                        templarArchives 0
                        twilightCouncil 0
                        warpGate 0
+
+param trainTime := probe 17
+                   zealot 38
+                   stalker 42
+                   sentry 37
+                   observer 30
+                   immortal 55
+                   warpPrism 50
+                   colossus 75
+                   phoenix 35
+                   voidray 60
+                   highTemplar 55
+                   darkTemplar 55
+                   carrier 120
+                   mothership 100
+                   mothershipCore 30
+                   oracle 50
+                   tempest 60
+
+param unitCost := probe 50
+                  zealot 100
+                  stalker 125
+                  sentry 50
+                  observer 25
+                  immortal 250
+                  warpPrism 200
+                  colossus 300
+                  phoenix 150
+                  voidray 250
+                  highTemplar 50
+                  darkTemplar 125
+                  carrier 350
+                  mothership 300
+                  mothershipCore 100
+                  oracle 150
+                  tempest 300
+
+param unitCostGas := probe 0
+                     zealot 0
+                     stalker 50
+                     sentry 100
+                     observer 75
+                     immortal 100
+                     warpPrism 0
+                     colossus 200
+                     phoenix 100
+                     voidray 150
+                     highTemplar 150
+                     darkTemplar 125
+                     carrier 250
+                     mothership 300
+                     mothershipCore 100
+                     oracle 150
+                     tempest 200
+
+param init := probe 6
+              zealot 0
+              stalker 0
+              sentry 0
+              observer 0
+              immortal 0
+              warpPrism 0
+              colossus 0
+              phoenix 0
+              voidray 0
+              highTemplar 0
+              darkTemplar 0
+              carrier 0
+              mothership 0
+              mothershipCore 0
+              oracle 0
+              tempest 0
+
+param unitSupply := probe 1
+                    zealot 2
+                    stalker 2
+                    sentry 2
+                    observer 1
+                    immortal 4
+                    warpPrism 2
+                    colossus 6
+                    phoenix 2
+                    voidray 4
+                    highTemplar 2
+                    darkTemplar 2
+                    carrier 6
+                    mothership 8
+                    mothershipCore 2
+                    oracle 3
+                    tempest 4
+
+
 
 
 param totalSupplyCap := 200;
