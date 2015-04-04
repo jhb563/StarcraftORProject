@@ -1,6 +1,9 @@
 # The amount of seconds we are simulating in the game
 param T;
 
+# The arbitrary constant
+param M;
+
 
 ############
 # SETS
@@ -35,6 +38,7 @@ param unitSupply{Units} >= 0;
 # buildings build which units)
 param requiredForBuilding{Buildings,Buildings} >= 0;
 param canBuildUnit{Buildings,Units} >= 0;
+param buildingRequiredForUnit{Buildings,Units} >= 0;
 
 # Initial Conditions
 param startMinerals >= 0;
@@ -111,6 +115,7 @@ subject to maximumSupplyConstraint{t in Times}:
 (sum{u in Units} ((totalUnits[t,u] * unitSupply[u]) + (inTraining[t,u] * unitSupply[u]))) <= totalSupplyCap;
 
 
+
 # Can't exceed our current supply allotment
 subject to currentSupplyConstraint{t in Times}:
 (sum{u in Units} (totalUnits[t,u] * unitSupply[u] + inTraining[t,u] * unitSupply[u])) <= currentSupplyCap[t];
@@ -138,9 +143,19 @@ subject to trainingStartedConstraint{u in Units, t in Times:t >= TrainTime[u]}:
 inTraining[t,u] = (sum{x in (t-TrainTime[u])..t} startTraining[x,u]);
 
 # Same constraint as above, just early on:
-subject to trainingStartedConstraint2{u in Units, t in Times:t < TrainTime[u]}:
+subject to trainingStartedConstraintEarly{u in Units, t in Times:t < TrainTime[u]}:
 inTraining[t,u] = (sum{x in 0..t} startTraining[x,u]);
 
-# Building order constraint
-subject to BuildingOrderConstraint{b1 in Buildings, b2 in Buildings, t in Times}:
-buildingNum[b1,t] <= M*(1-requiredForBuilding[b1,b2]+buildingNum[b2,t]);
+
+
+# Building Requirements Constraints
+# Each building can only start if its requirement has been made
+subject to buildingRequirement{t in Times, b1 in Buildings, b2 in Buildings}:
+buildingStart[t,b1] <= M*(1-requiredForBuilding[b1,b2])+M*buildingNum[t,b2];
+
+
+
+# Technology Constraints
+# Units can only be built if the right buildings are there
+subject to unitTechnology{t in Times, u in Units, b in Buildings}:
+startTraining[t,u] <= M*(1-buildingRequiredForUnit[b,u]) + M*buildingNum[t,b];
