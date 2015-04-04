@@ -168,28 +168,46 @@ param unitSupply := probe 1
                     tempest 4;
 
 
-param requiredForBuildingBuilding := assimilator cyberneticsCore darkShrine fleetBeacon forge gateway nexus photoCannon pylon roboticsBay roboticsFacility stargate templarArchives twilightCouncil warpGate
-assimilator     0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-cyberneticsCore 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0
-darkShrine      0 0 0 0 0 0 0 0 0 0 0 0 0 1 0
-fleetBeacon     0 0 0 0 0 0 0 0 0 0 0 1 0 0 0
-forge           
-gateway
-nexus 
-photonCannon
-pylon
-roboticsBay
-roboticsFacility
-stargate
-templarArchives
-twilightCouncil
-warpGate 
+param requiredForBuildingBuilding: assimilator cyberneticsCore darkShrine fleetBeacon forge gateway nexus photoCannon pylon roboticsBay roboticsFacility stargate templarArchives twilightCouncil warpGate :=
+assimilator      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+cyberneticsCore  0 0 0 0 0 1 0 0 0 0 0 0 0 0 0
+darkShrine       0 0 0 0 0 0 0 0 0 0 0 0 0 1 0
+fleetBeacon      0 0 0 0 0 0 0 0 0 0 0 1 0 0 0
+forge            0 0 0 0 0 0 1 0 0 0 0 0 0 0 0
+gateway          0 0 0 0 0 0 1 0 0 0 0 0 0 0 0
+nexus            0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+photonCannon     0 0 0 0 1 0 0 0 0 0 0 0 0 0 0
+pylon            0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+roboticsBay      0 0 0 0 0 0 0 0 0 1 0 0 0 0 0
+roboticsFacility 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0
+stargate         0 1 0 0 0 0 0 0 0 0 0 0 0 0 0
+templarArchives  0 0 0 0 0 0 0 0 0 0 0 0 0 1 0
+twilightCouncil  0 1 0 0 0 0 0 0 0 0 0 0 0 0 0
+warpGate         0 0 0 0 0 0 1 0 0 0 0 0 0 0 0
 
+param canBuildUnit: probe, zealot, stalker, sentry, observer, immortal,
+warpPrism, colossus, phoenix, voidray, highTemplar, darkTemplar,
+carrier, mothership, mothershipCore, oracle, tempest :=
+assimilator     
+cyberneticsCore 
+darkShrine      
+fleetBeacon     
+forge           
+gateway         
+nexus           
+photonCannon    
+pylon           
+roboticsBay     
+roboticsFacility
+stargate        
+templarArchives 
+twilightCouncil 
+warpGate        
 
 param startMinerals := 50;
 
 param mineralRatePerWorker := 42;
 
-param gasRatePerWorker := 
+param gasRatePerWorker := 1;
 
 param totalSupplyCap := 200;
