@@ -1,6 +1,9 @@
 # The amount of seconds we are simulating in the game
 param T;
 
+# The arbitrary constant
+param M;
+
 
 ############
 # SETS
@@ -32,6 +35,7 @@ param unitSupply{Units} >= 0;
 # buildings build which units)
 param requiredForBuilding{Buildings,Buildings} >= 0;
 param canBuildUnit{Buildings,Units} >= 0;
+param buildingRequiredForUnit{Buildings,Units} >= 0;
 
 # Initial Conditions
 param startMinerals >= 0;
@@ -93,11 +97,11 @@ buildingNum[t,b] = initialBuildings[b];
 # minus the amount we spend on units and buildings, plus what our workers
 # gathered in that time
 subject to mineralDelta{t in 1..T}:
-minerals[t] = minerals[t - 1] + mineralMinersNum[t - 1] * mineralRatePerWorker - (sum{b in Buildings} (buildingStart[t,b]*BuildingCost[b])) - (sum{u in Units} (startTraining[t,u]*unitCost[u]));
+minerals[t] = minerals[t - 1] + mineralMinersNum[t - 1] * mineralRatePerWorker - (sum{b in Buildings} (buildingStart[t,b]*BuildingCost[b])) - (sum{u in Units} (startTraining[t,u]*UnitCost[u]));
 
 # Same for gas
 subject to gasDelta{t in 1..T}:
-gas[t] = gas[t-1] + gasMinersNum[t-1] * gasRatePerWorker - (sum{b in Buildings} (buildingStart[t,b]*buildingCost[b])) - (sum{u in Units} (startTraining[t,u]*unitCost[i]));
+gas[t] = gas[t-1] + gasMinersNum[t-1] * gasRatePerWorker - (sum{b in Buildings} (buildingStart[t,b]*BuildingCost[b])) - (sum{u in Units} (startTraining[t,u]*UnitCost[u]));
 
 # Assume that the probe is the "first" unit in the units set
 subject to totalWorkersConstraint{t in Times}:
@@ -105,7 +109,7 @@ mineralMinersNum[t] + gasMinersNum[t] <= totalUnits[t,0];
 
 # Can't get over 200 supply, both with total units and those in training
 subject to maximumSupplyConstraint{t in Times}:
-(sum{u in Units} (totalUnits[t,u] * unitSupply[u]) + inTraining[t,u] * unitSupply[u]) <= totalSupplyCap;
+(sum{u in Units} (totalUnits[t,u] * unitSupply[u] + inTraining[t,u] * unitSupply[u])) <= totalSupplyCap;
 
 
 # Can't exceed our current supply allotment
@@ -114,7 +118,7 @@ subject to currentSupplyConstraint{t in Times}:
 
 # Our current supply is the amount supplied by our buildings
 subject to buildingSupplyCap{t in Times}:
-currentSupplyCap[t] <= (sum{b in Buildings} (buildingNum[b] * buildingSupply[b]));
+currentSupplyCap[t] <= (sum{b in Buildings} (buildingNum[t,b] * buildingSupply[b]));
 
 # We have as many buildings as we had previously, plus any that were starting at
 # the time previously that would finish exactly now
@@ -127,7 +131,7 @@ totalUnits[t,u] = totalUnits[t-1,u] + startTraining[t-TrainTime[u],u];
 
 # You cannot start making more units than you have structures for.
 subject to buildingTrainingConstraint{u in Units, t in Times}:
-inTraining[t,u] <= (sum{b in Buildings} (canBuildUnit[b,u]*numBuildings[t,b]));
+inTraining[t,u] <= (sum{b in Buildings} (canBuildUnit[b,u]*buildingNum[t,b]));
 
 # For each unit, the number in training is equal to the amount that have started 
 # in the period of the unit's build time.
@@ -135,6 +139,19 @@ subject to trainingStartedConstraint{u in Units, t in Times:t >= TrainTime[u]}:
 inTraining[t,u] = (sum{x in (t-TrainTime[u])..t} startTraining[x,u]);
 
 # Same constraint as above, just early on:
-subject to trainingStartedConstraint{u in Units, t in Times:t < TrainTime[u]}:
+subject to trainingStartedConstraintEarly{u in Units, t in Times:t < TrainTime[u]}:
 inTraining[t,u] = (sum{x in 0..t} startTraining[x,u]);
 
+
+
+# Building Requirements Constraints
+# Each building can only start if its requirement has been made
+subject to buildingRequirement{t in Times, b1 in Buildings, b2 in Buildings}:
+buildingStart[t,b1] <= M*(1-requiredForBuilding[b1,b2])+M*buildingNum[t,b2];
+
+
+
+# Technology Constraints
+# Units can only be built if the right buildings are there
+subject to unitTechnology{t in Times, u in Units, b in Buildings}:
+startTraining[t,u] <= M*(1-buildingRequiredForUnit[b,u]) + M*buildingNum[t,b];
