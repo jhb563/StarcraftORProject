@@ -1,4 +1,4 @@
-param T := 240;
+param T := 300;
 param M := 1000000;
 
 # all buildings protoss can build

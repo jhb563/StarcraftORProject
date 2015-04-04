@@ -82,7 +82,7 @@ var currentSupplyCap{Times} >= 0 integer;
 ####################
 
 maximize gold:
-totalUnits[T,'probe'];
+totalUnits[T,'zealot'] + 2*totalUnits[T,'stalker'];
 
 #############
 # CONSTRAINTS
@@ -109,9 +109,13 @@ minerals[t] = minerals[t - 1] + mineralMinersNum[t - 1] * mineralRatePerWorker -
 
 # Same for gas
 subject to gasDelta{t in 1..T}:
-gas[t] = gas[t-1] + gasMinersNum[t-1] * gasRatePerWorker - (sum{b in Buildings} (buildingStart[t,b]*BuildingCost[b])) - (sum{u in Units} (startTraining[t,u]*UnitCost[u]));
+gas[t] = gas[t-1] + gasMinersNum[t-1] * gasRatePerWorker - (sum{b in Buildings} (buildingStart[t,b]*BuildingCostGas[b])) - (sum{u in Units} (startTraining[t,u]*UnitCostGas[u]));
 
-# Assume that the probe is the "first" unit in the units set
+# We can only mine 3 workers per assimilator
+subject to assimilatorConstraint{t in 1..T}:
+gasMinersNum[t] - 3*buildingNum[t,'assimilator'] <= 0;
+
+# We can only work as many workers as we have
 subject to totalWorkersConstraint{t in Times}:
 mineralMinersNum[t] + gasMinersNum[t] = totalUnits[t,'probe'];
 
@@ -127,16 +131,16 @@ subject to currentSupplyConstraint{t in Times}:
 
 # Our current supply is the amount supplied by our buildings
 subject to buildingSupplyCap{t in Times}:
-currentSupplyCap[t] <= (sum{b in Buildings} (buildingNum[t,b] * buildingSupply[b]));
+currentSupplyCap[t] = (sum{b in Buildings} (buildingNum[t,b] * buildingSupply[b]));
 
 # We have as many buildings as we had previously, plus any that were starting at
 # the time previously that would finish exactly now
 subject to buildingCountConstraint{b in Buildings, t in Times:t > BuildTime[b]}:
-buildingNum[t,b] = buildingNum[t-1,b] + buildingStart[t-BuildTime[b],b];
+buildingNum[t,b] = buildingNum[t-1,b] + buildingStart[t-BuildTime[b]+1,b];
 
 # Units have a similar constraint to buildings
 subject to unitCountConstraint{u in Units, t in Times:t > TrainTime[u]}:
-totalUnits[t,u] = totalUnits[t-1,u] + startTraining[t-TrainTime[u],u];
+totalUnits[t,u] = totalUnits[t-1,u] + startTraining[t-TrainTime[u]+1,u];
 
 # You cannot start making more units than you have structures for.
 subject to buildingTrainingConstraint{u in Units, t in Times}:
