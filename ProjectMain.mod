@@ -62,22 +62,22 @@ var gas{Times} >= 0;
 
 # At some time, we have a certain amount of units done, some in training, and
 # some just started (this is sort've a meta-parameter)
-var totalUnits{Times,Units} >= 0;
-var inTraining{Times,Units} >= 0;
-var startTraining{Times,Units} >= 0;
+var totalUnits{Times,Units} >= 0 integer;
+var inTraining{Times,Units} >= 0 integer;
+var startTraining{Times,Units} >= 0 integer;
 
 # At each time, we have some buildings, and some start being built at certain
 # times.
-var buildingNum{Times,Buildings} >= 0;
-var buildingStart{Times,Buildings} >= 0;
+var buildingNum{Times,Buildings} >= 0 integer;
+var buildingStart{Times,Buildings} >= 0 integer;
 
 # The amount of workers we have devoted to minerals and gas at a given
 # moment.
-var mineralMinersNum{Times} >= 0;
-var gasMinersNum{Times} >= 0;
+var mineralMinersNum{Times} >= 0 integer;
+var gasMinersNum{Times} >= 0 integer;
 
 # Our current maximum supply
-var currentSupplyCap{Times} >= 0;
+var currentSupplyCap{Times} >= 0 integer;
 
 #############
 # CONSTRAINTS
