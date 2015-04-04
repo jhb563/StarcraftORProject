@@ -1,8 +1,6 @@
 # The amount of seconds we are simulating in the game
 param T;
 
-# The arbitrary constant
-param M;
 
 
 ############
@@ -79,6 +77,13 @@ var gasMinersNum{Times} >= 0 integer;
 # Our current maximum supply
 var currentSupplyCap{Times} >= 0 integer;
 
+####################
+# OBJECTIVE FUNCTION
+####################
+
+maximize gold:
+totalUnits[T,'probe'];
+
 #############
 # CONSTRAINTS
 #############
@@ -108,7 +113,7 @@ gas[t] = gas[t-1] + gasMinersNum[t-1] * gasRatePerWorker - (sum{b in Buildings} 
 
 # Assume that the probe is the "first" unit in the units set
 subject to totalWorkersConstraint{t in Times}:
-mineralMinersNum[t] + gasMinersNum[t] <= totalUnits[t,0];
+mineralMinersNum[t] + gasMinersNum[t] = totalUnits[t,'probe'];
 
 # Can't get over 200 supply, both with total units and those in training
 subject to maximumSupplyConstraint{t in Times}:

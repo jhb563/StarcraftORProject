@@ -1,19 +1,20 @@
-param T := 600;
+param T := 240;
+param M := 1000000;
 
-// all buildings protoss can build
-set buildings:= assimilator, cyberneticsCore, darkShrine, fleetBeacon, forge, 
-gateway, nexus, photoCannon, pylon, roboticsBay, roboticsFacility, stargate,
+# all buildings protoss can build
+set Buildings:= assimilator, cyberneticsCore, darkShrine, fleetBeacon, forge, 
+gateway, nexus, photonCannon, pylon, roboticsBay, roboticsFacility, stargate,
 templarArchives, twilightCouncil, warpGate;
 
-// all units protoss can build
-set units := probe, zealot, stalker, sentry, observer, immortal,
+# all units protoss can build
+set Units := probe, zealot, stalker, sentry, observer, immortal,
 warpPrism, colossus, phoenix, voidray, highTemplar, darkTemplar,
 carrier, mothership, mothershipCore, oracle, tempest;
 
 param startMinerals := 50;
 param startGas := 0;
 
-param buildTime := assimilator 30
+param BuildTime := assimilator 30
                    cyberneticsCore 50
                    darkShrine 100
                    fleetBeacon 60
@@ -29,7 +30,7 @@ param buildTime := assimilator 30
                    twilightCouncil 50
                    warpGate 10;
 
-param buildingCost:= assimilator 75
+param BuildingCost:= assimilator 75
                      cyberneticsCore 150
                      darkShrine 150
                      fleetBeacon 300
@@ -45,7 +46,7 @@ param buildingCost:= assimilator 75
                      twilightCouncil 150
                      warpGate 150;
 
-param buildingCostGas := assimilator 0
+param BuildingCostGas := assimilator 0
                          cyberneticsCore 0
                          darkShrine 150
                          fleetBeacon 200
@@ -61,7 +62,7 @@ param buildingCostGas := assimilator 0
                          twilightCouncil 100
                          warpGate 0;
 
-param unitsProvided := assimilator 0
+param buildingSupply := assimilator 0
                        cyberneticsCore 0
                        darkShrine 0
                        fleetBeacon 0
@@ -77,7 +78,7 @@ param unitsProvided := assimilator 0
                        twilightCouncil 0
                        warpGate 0;
 
-param trainTime := probe 17
+param TrainTime := probe 17
                    zealot 38
                    stalker 42
                    sentry 37
@@ -95,7 +96,7 @@ param trainTime := probe 17
                    oracle 50
                    tempest 60;
 
-param unitCost := probe 50
+param UnitCost := probe 50
                   zealot 100
                   stalker 125
                   sentry 50
@@ -113,7 +114,7 @@ param unitCost := probe 50
                   oracle 150
                   tempest 300;
 
-param unitCostGas := probe 0
+param UnitCostGas := probe 0
                      zealot 0
                      stalker 50
                      sentry 100
@@ -149,6 +150,22 @@ param init := probe 6
               oracle 0
               tempest 0;
 
+param initialBuildings := assimilator 0
+                       cyberneticsCore 0
+                       darkShrine 0
+                       fleetBeacon 0
+                       forge 0
+                       gateway 0
+                       nexus 1
+                       photonCannon 0
+                       pylon 0
+                       roboticsBay 0
+                       roboticsFacility 0
+                       stargate 0
+                       templarArchives 0
+                       twilightCouncil 0
+                       warpGate 0;
+
 param unitSupply := probe 1
                     zealot 2
                     stalker 2
@@ -168,7 +185,7 @@ param unitSupply := probe 1
                     tempest 4;
 
 
-param requiredForBuildingBuilding: assimilator cyberneticsCore darkShrine fleetBeacon forge gateway nexus photoCannon pylon roboticsBay roboticsFacility stargate templarArchives twilightCouncil warpGate :=
+param requiredForBuilding: assimilator cyberneticsCore darkShrine fleetBeacon forge gateway nexus photonCannon pylon roboticsBay roboticsFacility stargate templarArchives twilightCouncil warpGate :=
 assimilator      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 cyberneticsCore  0 0 0 0 0 1 0 0 0 0 0 0 0 0 0
 darkShrine       0 0 0 0 0 0 0 0 0 0 0 0 0 1 0
@@ -183,31 +200,46 @@ roboticsFacility 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0
 stargate         0 1 0 0 0 0 0 0 0 0 0 0 0 0 0
 templarArchives  0 0 0 0 0 0 0 0 0 0 0 0 0 1 0
 twilightCouncil  0 1 0 0 0 0 0 0 0 0 0 0 0 0 0
-warpGate         0 0 0 0 0 0 1 0 0 0 0 0 0 0 0
+warpGate         0 0 0 0 0 0 1 0 0 0 0 0 0 0 0;
 
-param canBuildUnit: probe, zealot, stalker, sentry, observer, immortal,
-warpPrism, colossus, phoenix, voidray, highTemplar, darkTemplar,
-carrier, mothership, mothershipCore, oracle, tempest :=
-assimilator     
-cyberneticsCore 
-darkShrine      
-fleetBeacon     
-forge           
-gateway         
-nexus           
-photonCannon    
-pylon           
-roboticsBay     
-roboticsFacility
-stargate        
-templarArchives 
-twilightCouncil 
-warpGate        
+param canBuildUnit: probe zealot stalker sentry observer immortal warpPrism colossus phoenix voidray highTemplar darkTemplar carrier mothership mothershipCore oracle tempest :=
+assimilator 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0     
+cyberneticsCore 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0     
+darkShrine 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0          
+fleetBeacon 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0         
+forge 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0               
+gateway 0 1 1 1 0 0 0 0 0 0 1 1 0 0 0 0 0        
+nexus 1 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0          
+photonCannon 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0        
+pylon 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0               
+roboticsBay 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0         
+roboticsFacility 0 0 0 0 1 1 1 1 0 0 0 0 0 0 0 0 0
+stargate 0 0 0 0 0 0 0 0 1 1 0 0 1 0 0 1 1
+templarArchives 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0     
+twilightCouncil 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0     
+warpGate 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 
-param startMinerals := 50;
 
-param mineralRatePerWorker := 42;
+param buildingRequiredForUnit: probe zealot stalker sentry observer immortal warpPrism colossus phoenix voidray highTemplar darkTemplar carrier mothership mothershipCore oracle tempest :=
+assimilator 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0     
+cyberneticsCore 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0     
+darkShrine 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0          
+fleetBeacon 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1         
+forge 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0               
+gateway 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0        
+nexus 1 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0          
+photonCannon 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0        
+pylon 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0               
+roboticsBay 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0         
+roboticsFacility 0 0 0 0 1 1 1 1 0 0 0 0 0 0 0 0 0
+stargate 0 0 0 0 0 0 0 0 1 1 0 0 1 0 0 1 1
+templarArchives 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0     
+twilightCouncil 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0     
+warpGate 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 
-param gasRatePerWorker := 1;
+
+param mineralRatePerWorker := 0.7;
+
+param gasRatePerWorker := 0.6333;
 
 param totalSupplyCap := 200;
