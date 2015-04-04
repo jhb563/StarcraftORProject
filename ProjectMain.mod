@@ -21,6 +21,9 @@ set Units ordered;
 # PARAMETERS
 ##############
 
+# Large constant
+param M >= 0;
+
 # Build times, costs, supply provided (buildings) or supply cost (units)
 param BuildTime{Buildings} >= 0;
 param BuildingCost{Buildings} >= 0;
@@ -109,7 +112,8 @@ mineralMinersNum[t] + gasMinersNum[t] <= totalUnits[t,0];
 
 # Can't get over 200 supply, both with total units and those in training
 subject to maximumSupplyConstraint{t in Times}:
-(sum{u in Units} (totalUnits[t,u] * unitSupply[u] + inTraining[t,u] * unitSupply[u])) <= totalSupplyCap;
+(sum{u in Units} ((totalUnits[t,u] * unitSupply[u]) + (inTraining[t,u] * unitSupply[u]))) <= totalSupplyCap;
+
 
 
 # Can't exceed our current supply allotment
